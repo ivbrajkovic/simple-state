@@ -12,7 +12,10 @@ Hook usage is similar to well known useState hook :wink:
 
 ## Basic usage
 
+Store module
+
 ```js
+// store.js
 import { makeObservable, useSimpleState } from "@ivbrajkovic/simple-state";
 
 // This can be an object with many properties
@@ -22,6 +25,24 @@ const store = makeObservable({ clickCounter: 0 });
 export const useSimpleStore = (select) => {
   return useSimpleState(store, select);
 };
+```
+
+Some component
+
+```js
+// Component.js
+import { useSimpeStore } from "./useSimpleStore";
+
+const Component = () => {
+  const [count, setCount] = useSimpeStore("clickCounter");
+  
+  return <div>
+    <button onClick={() => setCount(count + 1)}>Incerment</button>
+    <div>{count}</div>
+  </div>
+}
+
+export default Component
 ```
 
 ## TODO

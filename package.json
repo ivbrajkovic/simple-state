@@ -1,6 +1,6 @@
 {
-  "name": "@ivbrajkovic/simple-reactive-state",
-  "version": "1.0.0",
+  "name": "@ivbrajkovic/simple-state",
+  "version": "1.1.0",
   "description": "Simple reactive state",
   "author": "Ivan Brajković",
   "license": "ISC",

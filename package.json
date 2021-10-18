@@ -1,5 +1,5 @@
 {
-  "name": "simple-state",
+  "name": "@ivbrajkovic/simple-reactive-state",
   "version": "1.0.0",
   "description": "Simple reactive state",
   "author": "Ivan Brajković",
@@ -8,6 +8,10 @@
     "type": "git",
     "url": "git+https://github.com/ivbrajkovic/simple-state.git"
   },
+  "bugs": {
+    "url": "https://github.com/ivbrajkovic/simple-state"
+  },
+  "homepage": "https://github.com/ivbrajkovic/simple-state#readme",
   "keywords": [
     "state",
     "simple state",
@@ -25,7 +29,8 @@
   "scripts": {
     "tsc": "tsc",
     "lint": "npx eslint . --ext .ts,.tsx",
-    "build:rollup": "rollup -c rollup.config.ts"
+    "build:rollup": "rollup -c rollup.config.ts",
+    "npm:publish": "npm publish --access public"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.0",

@@ -2,10 +2,39 @@
   "name": "simple-state",
   "version": "1.0.0",
   "description": "Simple reactive state",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Ivan Brajković",
-  "license": "ISC"
+  "license": "ISC",
+  "main": "./lib/index.cjs.js",
+  "module": "./lib/index.esm.js",
+  "types": "./lib/types",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivbrajkovic/simple-state.git"
+  },
+  "keywords": [
+    "state",
+    "simple state",
+    "simple reactive state"
+  ],
+  "exports": {
+    ".": {
+      "require": "./lib/index.cjs.js",
+      "default": "./lib/index.esm.js"
+    }
+  },
+  "scripts": {
+    "tsc": "tsc",
+    "lint": "npx eslint . --ext .ts,.tsx",
+    "build:rollup": "rollup -c rollup.config.ts"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.5",
+    "@tsconfig/recommended": "^1.0.1",
+    "rollup": "^2.58.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "terser": "^5.9.0",
+    "typescript": "^4.4.4"
+  }
 }

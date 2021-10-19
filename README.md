@@ -69,6 +69,7 @@ const [state, setSimpleState] = useSimpleState(select, onChange?);
 | Parame | Default | Required | Description |
 |---|---|---|---|
 | string | - | yes | property to oberve |
+| callback | - | no | onChange callback called with changed value<br/>*if provided hook will not rerender* |
 
 | Returns | Description | 
 |---|---|

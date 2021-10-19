@@ -19,7 +19,7 @@ export type IObserved = IObject & {
   getObserversCount: () => number;
 };
 
-const makeObservableSelect = (observed: IObject): IObserved => {
+const makeObservableSelect = (observed: IObject = {}): IObserved => {
   // Initialize handlers array
   const handlers = Symbol("handlers");
   observed[handlers] = [];

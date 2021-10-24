@@ -27,6 +27,7 @@ const useSimpleStateMulti = (
       }
     });
     return unobserve;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setSimpleState = (selector: string, value: unknown) => {

@@ -11,9 +11,11 @@ const useSimpleState = (
   useEffect(() => {
     const unobserve = observable.observe(select, onChange || setState);
     return unobserve;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setSimpleState = (value: unknown) => {
+    // eslint-disable-next-line no-param-reassign
     observable[select] = value;
   };
 

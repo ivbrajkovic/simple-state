@@ -19,11 +19,16 @@ Store module
 import { makeObservable, useSimpleState } from "@ivbrajkovic/simple-state";
 
 // This can be an object with many properties
-const store = makeObservable({ clickCounter: 0 });
+const store = makeObservable({ name: "Mr. Bean", clickCounter: 0 });
 
 // Select property you want to observer
 export const useSimpleStore = (select) => {
   return useSimpleState(store, select);
+};
+
+// Select multiple property you want to observer
+export const useSimpeStoreMulti = (selectors) => {
+  return useSimpleStateMulti(store, selectors);
 };
 ```
 
@@ -46,6 +51,30 @@ export default Component
 ```
 <br /> 
 
+Some other component
+
+```js
+// Component.js
+import { useSimpeStoreMulti } from "./useSimpleStore";
+
+const Component = () => {
+  const [{ name, clickCounter }, setSimpleState] = useSimpeStoreMulti([
+    "name",
+    "clickCounter"
+  ]);
+  
+  return <div>
+    <button onClick={() => setCount("name", "Gandalf the Grey"}>Set name</button>
+    <button onClick={() => setCount("clickCounter", clickCounter + 1)}>Incerment</button>
+    <div>name: {name}, clicks: {clickCounter}</div>
+  </div>
+}
+
+export default Component
+```
+<br /> 
+
+
 ## API
 
 * `makeObservableSelect` - initialize observable object, accept object to observe and return observable
@@ -64,19 +93,36 @@ const observable = makeObservableSelect(object);
 
 * `useSimpleState` - listen for change on observable
 ```js
-const [state, setSimpleState] = useSimpleState(select, onChange?);
+const [state, setSimpleState] = useSimpleState(selector: string, onChange?);
 ```
-| Parame | Default | Required | Description |
-|---|---|---|---|
-| string | - | yes | property to oberve |
-| callback | - | no | onChange callback called with changed value<br/>*if provided hook will not rerender* |
+| Parame | Type | Default | Required | Description |
+|---|---|---|---|---|
+| selector | string | - | yes | property to oberve |
+| callback | fnction | - | no | onChange callback called with changed value<br/>*if provided hook will not rerender* |
 
-| Returns | Description | 
-|---|---|
-| state | observed value | 
-| setSimpleState | update observed value |
+| Returns | Type | Description | 
+|---|---|---|
+| state | unknown | observed value | 
+| setSimpleState | function | update observed value |
 
 <br /> 
+
+* `useSimpleStateMulti` - listen for change on observable with multiple selectors
+```js
+const [state, setSimpleState] = useSimpleStateMulti(selectors: string[], onChange?);
+```
+| Parame | Type | Default | Required | Description |
+|---|---|---|---|---|
+| selectors | array | - | yes | properties to oberve |
+| callback | function | - | no | onChange callback called with property name and changed value<br/>*if provided hook will not rerender* |
+
+| Returns | Type | Description | 
+|---|---|---|
+| state | object | observed values | 
+| setSimpleState | function | update observed value |
+
+<br /> 
+
 
 ## :checkered_flag: TODO
 

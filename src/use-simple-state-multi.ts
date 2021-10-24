@@ -4,7 +4,7 @@ import { IObserved } from './make-observable';
 const generateObject = (observed: IObserved, selectors: string[]) => {
   const object: Record<string, unknown> = {};
   selectors.forEach((selector) => {
-    object[selector] = observed[selector] || undefined;
+    object[selector] = observed[selector];
   });
   return object;
 };

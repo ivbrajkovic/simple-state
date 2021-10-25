@@ -126,5 +126,5 @@ const [state, setSimpleState] = useSimpleStateMulti(selectors: string[], onChang
 
 ## :checkered_flag: TODO
 
-1. Add multiple selector
+1. Add multiple selector :heavy_check_mark:
 2. Add reference equality check

@@ -1,56 +1,61 @@
+import { Dispatch, SetStateAction } from "react";
+
 type Selector =
   | string
   | string[]
   | ((selector: string, value: unknown) => void);
 
-type CallbackOne = ((value: unknown) => void) | undefined;
-type CallbackTwo = ((selector: string, value: unknown) => void) | undefined;
+type CallbackOne<T> = ((value: T) => void) | undefined;
+type CallbackTwo<T> = ((selector: string, value: T) => void) | undefined;
 
-declare function Observe(selector: string, callback: CallbackOne): void;
-declare function Observe(selectors: string[], callback: CallbackTwo): void;
-declare function Observe(callback: CallbackTwo): void;
+declare function Observe<T>(selector: string, callback: CallbackOne<T>): void;
+declare function Observe<T>(selectors: string[], callback: CallbackTwo<T>): void;
+declare function Observe<T>(callback: CallbackTwo<T>): void;
+declare function Observe<T>(selector: string, callback: Dispatch<SetStateAction<T>>): void;
+
+export type ObserveType = typeof Observe;
 
 type HandlerCallback = (...properties: unknown[]) => void;
 type Handler = [selector: Selector, callback?: HandlerCallback];
 
-export interface IObject {
+export type IObject = {
   [key: string]: unknown;
   [key: symbol]: Array<Handler>;
 }
 
-export type IObserved = IObject & {
+export type IObserved<T> = T & {
   observe: typeof Observe;
   unobserveAll: () => void;
   getObserversCount: () => number;
 };
 
 /* eslint-disable no-param-reassign */
-const makeObservableSelect = (observed: IObject = {}): IObserved => {
+const makeObservableSelect = <T extends IObject>(observed: T): IObserved<T> => {
   // 1. Initialize handlers array
   const handlers = Symbol('handlers');
-  observed[handlers] = [];
+  (observed as IObject)[handlers] = [];
 
-  observed.getObserversCount = function getObserversCount() {
+  (observed as IObserved<T>).getObserversCount = function getObserversCount() {
     return observed[handlers].length;
   };
 
-  observed.unobserveAll = function unobserveAll() {
+  (observed as IObserved<T>).unobserveAll = function unobserveAll() {
     observed[handlers].length = 0;
   };
 
   // Add handler to array
-  observed.observe = function ObserveType(...handler: Handler) {
+  (observed as IObserved<T>).observe = function observe(...handler: Handler) {
     // TODO Add handler reference equality check
-    this[handlers].push(handler);
+    (observed as IObject)[handlers].push(handler);
 
     // Remove handler from the list
     return function unobserve() {
-      observed[handlers] = observed[handlers].filter((h) => h !== handler);
+      (observed as IObject)[handlers] = observed[handlers].filter((h) => h !== handler);
     };
-  };
+  } as typeof Observe;
 
   // 2. Create a proxy to handle changes
-  return new Proxy(observed as IObserved, {
+  return new Proxy(observed as IObserved<T>, {
     set(target, property, value, receiver) {
       const reflectValue = Reflect.get(target, property, receiver) as unknown;
 
@@ -66,7 +71,7 @@ const makeObservableSelect = (observed: IObject = {}): IObserved => {
       if (success) {
         // Notify all subscribers
         target[handlers].forEach(([first, second]) => {
-          if (first instanceof Function) first(property, value);
+          if (typeof first === "function") first(property, value);
           else if (first === property) second?.(value);
           else if (first.includes?.(property)) second?.(property, value);
         });
@@ -79,4 +84,3 @@ const makeObservableSelect = (observed: IObject = {}): IObserved => {
 };
 
 export default makeObservableSelect;
-/* eslint-enable no-param-reassign */

@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react';
-import { IObserved } from './make-observable';
+import { useCallback, useEffect, useState } from "react";
+import { IObject, IObserved } from "./make-observable";
 
-const useSimpleState = (
-  observable: IObserved,
+type Callback<T> = (value: T) => T;
+
+const useSimpleState = <T>(
+  observable: IObserved<IObject>,
   select: string,
-  onChange?: (value: unknown) => void,
-): [state: unknown, setSimpleState: (value: unknown) => void] => {
-  const [state, setState] = useState(observable[select]);
+  onChange?: (value: T) => void
+) : [state: T, setSimpleState: (value: Callback<T> | T) => void]  => {
+  const [state, setState] = useState<T>(observable[select] as T);
 
   useEffect(() => {
     const unobserve = observable.observe(select, onChange || setState);
@@ -14,10 +16,14 @@ const useSimpleState = (
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const setSimpleState = (value: unknown) => {
-    // eslint-disable-next-line no-param-reassign
-    observable[select] = value;
-  };
+  const setSimpleState = useCallback((props: Callback<T> | T) => {
+    if(props instanceof Function) {
+      observable[select] = props(observable[select] as T);
+    }
+    else {
+      observable[select] = props;
+    }
+  }, []);
 
   return [state, setSimpleState];
 };

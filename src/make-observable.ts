@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from 'react';
 
 type Selector =
   | string
@@ -9,9 +9,15 @@ type CallbackOne<T> = ((value: T) => void) | undefined;
 type CallbackTwo<T> = ((selector: string, value: T) => void) | undefined;
 
 declare function Observe<T>(selector: string, callback: CallbackOne<T>): void;
-declare function Observe<T>(selectors: string[], callback: CallbackTwo<T>): void;
+declare function Observe<T>(
+  selectors: string[],
+  callback: CallbackTwo<T>,
+): void;
 declare function Observe<T>(callback: CallbackTwo<T>): void;
-declare function Observe<T>(selector: string, callback: Dispatch<SetStateAction<T>>): void;
+declare function Observe<T>(
+  selector: string,
+  callback: Dispatch<SetStateAction<T>>,
+): void;
 
 export type ObserveType = typeof Observe;
 
@@ -21,7 +27,7 @@ type Handler = [selector: Selector, callback?: HandlerCallback];
 export type IObject = {
   [key: string]: unknown;
   [key: symbol]: Array<Handler>;
-}
+};
 
 export type IObserved<T> = T & {
   observe: typeof Observe;
@@ -29,7 +35,6 @@ export type IObserved<T> = T & {
   getObserversCount: () => number;
 };
 
-/* eslint-disable no-param-reassign */
 const makeObservableSelect = <T extends IObject>(observed: T): IObserved<T> => {
   // 1. Initialize handlers array
   const handlers = Symbol('handlers');
@@ -50,7 +55,9 @@ const makeObservableSelect = <T extends IObject>(observed: T): IObserved<T> => {
 
     // Remove handler from the list
     return function unobserve() {
-      (observed as IObject)[handlers] = observed[handlers].filter((h) => h !== handler);
+      (observed as IObject)[handlers] = observed[handlers].filter(
+        (h) => h !== handler,
+      );
     };
   } as typeof Observe;
 
@@ -71,7 +78,7 @@ const makeObservableSelect = <T extends IObject>(observed: T): IObserved<T> => {
       if (success) {
         // Notify all subscribers
         target[handlers].forEach(([first, second]) => {
-          if (typeof first === "function") first(property, value);
+          if (typeof first === 'function') first(property, value);
           else if (first === property) second?.(value);
           else if (first.includes?.(property)) second?.(property, value);
         });

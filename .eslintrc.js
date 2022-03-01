@@ -34,6 +34,8 @@ module.exports = {
     '@typescript-eslint/indent': 'off',
     // "import/no-unresolved": 0,
     // "import/no-extraneous-dependencies": 0,
+    'unicorn/no-array-reduce': 'off',
+    'no-param-reassign': 'off',
   },
   settings: {
     react: {

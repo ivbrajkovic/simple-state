@@ -80,7 +80,8 @@ const makeObservableSelect = <T extends IObject>(observed: T): IObserved<T> => {
         target[handlers].forEach(([first, second]) => {
           if (typeof first === 'function') first(property, value);
           else if (first === property) second?.(value);
-          else if (first.includes?.(property)) second?.(property, value);
+          else if (Array.isArray(first) && first.includes(property))
+            second?.(property, value);
         });
       }
 

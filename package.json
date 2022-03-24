@@ -1,6 +1,6 @@
 {
   "name": "@ivbrajkovic/simple-state",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "Simple reactive state",
   "author": "Ivan Brajković",
   "license": "ISC",
@@ -17,14 +17,12 @@
     "simple state",
     "simple reactive state"
   ],
-  "main": "./lib/index.cjs.js",
-  "module": "./lib/index.esm.js",
   "types": "./lib/types",
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
   "exports": {
-    ".": {
-      "require": "./lib/index.cjs.js",
-      "import": "./lib/index.esm.js"
-    }
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
   },
   "scripts": {
     "tsc": "tsc",

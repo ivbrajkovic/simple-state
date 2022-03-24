@@ -4,6 +4,8 @@ import typescript from 'rollup-plugin-typescript2';
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
+const extensions = ['.js', '.ts'];
+
 export default {
   input: './src/index.ts',
   external: ['react', 'react-dom'],
@@ -18,7 +20,7 @@ export default {
     },
   ],
   plugins: [
-    resolve(),
+    resolve({ extensions }),
     commonjs(),
     typescript({
       useTsconfigDeclarationDir: true,

@@ -7,9 +7,9 @@ const useSimpleState = <T>(
   observable: IObserved<IObject>,
   select: string,
   onChange?: (value: T) => void,
-): [state: T | undefined, setSimpleState: (value: Callback<T> | T) => void] => {
-  const [state, setState] = useState<T | undefined>(
-    onChange ? undefined : (observable[select] as T),
+): [state: T, setSimpleState: (value: Callback<T> | T) => void] => {
+  const [state, setState] = useState<T>(
+    (onChange ? undefined : observable[select]) as T,
   );
 
   useEffect(() => {

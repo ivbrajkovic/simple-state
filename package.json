@@ -23,7 +23,7 @@
   "exports": {
     ".": {
       "require": "./lib/index.cjs.js",
-      "default": "./lib/index.esm.js"
+      "import": "./lib/index.esm.js"
     }
   },
   "scripts": {

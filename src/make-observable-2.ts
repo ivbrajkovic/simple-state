@@ -49,7 +49,6 @@ function makeObservable<T extends Observed, K extends KeyOrKeysOf<T>>(
         if (!this[HANDLERS][key]) this[HANDLERS][key] = [handler];
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         else this[HANDLERS][key]!.push(handler);
-        this[HANDLERS][key]?.push();
       });
 
       return () => {

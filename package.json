@@ -1,6 +1,6 @@
 {
   "name": "@ivbrajkovic/simple-state",
-  "version": "1.4.6",
+  "version": "1.5.0",
   "description": "Simple reactive state",
   "author": "Ivan Brajković",
   "license": "ISC",
@@ -21,8 +21,11 @@
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
   "exports": {
-    "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    ".": {
+      "require": "./lib/cjs/index.js",
+      "import": "./lib/esm/index.js",
+      "types": "./lib/types/index.d.ts"  
+    }
   },
   "scripts": {
     "tsc": "tsc",
@@ -32,35 +35,35 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^21.0.0",
+    "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^13.0.5",
     "@tsconfig/recommended": "^1.0.1",
-    "@types/react": "^17.0.30",
+    "@types/react": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-airbnb-typescript": "^14.0.1",
+    "eslint": "^8.22.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-promise": "^5.1.1",
+    "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-unicorn": "^37.0.1",
-    "husky": "^7.0.4",
-    "lint-staged": "^11.2.4",
+    "eslint-plugin-unicorn": "^43.0.2",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.4.1",
     "rollup": "^2.58.0",
     "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-typescript2": "^0.32.1",
     "terser": "^5.9.0",
     "typescript": "^4.4.4"
   },
   "peerDependencies": {
-    "react": ">=16.8",
-    "react-dom": ">=16.8"
+    "react": ">=16.0",
+    "react-dom": ">=16.0"
   },
   "dependencies": {},
   "lint-staged": {

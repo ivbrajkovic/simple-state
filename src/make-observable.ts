@@ -35,6 +35,9 @@ export type IObserved<T> = T & {
   getObserversCount: () => number;
 };
 
+/**
+ * @deprecated use `makeObservable2` instead
+ */
 const makeObservableSelect = <T extends IObject>(observed: T): IObserved<T> => {
   // 1. Initialize handlers array
   const handlers = Symbol('handlers');

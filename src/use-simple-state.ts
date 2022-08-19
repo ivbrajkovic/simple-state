@@ -3,6 +3,9 @@ import { IObject, IObserved } from './make-observable';
 
 type Callback<T> = (value: T) => T;
 
+/**
+ * @deprecated use `useSimpleState2` instead
+ */
 const useSimpleState = <T>(
   observable: IObserved<IObject>,
   select: string,

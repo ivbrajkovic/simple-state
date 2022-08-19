@@ -17,6 +17,9 @@ const generateObject = <T>(
     return acc;
   }, {} as Record<string, unknown>) as T;
 
+/**
+ * @deprecated use `useSimpleState2` instead
+ */
 const useSimpleStateMulti = <T extends Record<string, unknown>>(
   observable: IObserved<IObject>,
   selectors: string[],
